@@ -4,6 +4,7 @@ var paragraph= document.querySelector("#TemP");
 var startup= document.querySelector("#TemB");
 var position= document.querySelector("#choice");
 var Timer= document.querySelector("#timer");
+var Contain= document.querySelector("#jumbo");
 var Questionare= ["Who was the first president of the United States?", "When was the Louisiana Purchase bought?", "In what year did U.S Civil War start?"];
 var DataA=["James Adam", "George Washinton", "Benjamin Franklin", "Thomas Jefferson", "1776", "1803", "1812", "1789", "1847", "1851", "1861", "1862"];
 
@@ -20,11 +21,11 @@ function setup(){
     Q.setAttribute("data-Q2", Questionare[1]);
     Q.setAttribute("data-Q3", Questionare[2]);
     Q.setAttribute("data-Number", "first");
-
+    Contain.setAttribute("class", "container jumbotron");
     for ( var i= 0; i<4; i++){
         var Ans= document.createElement("button");
         Ans.addEventListener("click", text);
-        Ans.setAttribute("class", "btn btn-outline-primary col-6 mr-3 p-4 mb-4");
+        Ans.setAttribute("class", "btn btn-outline-primary col-4 mr-3 p-3 mb-4");
         Ans.setAttribute("id", i);
         Ans.setAttribute("data-A1", DataA[i]);
         Ans.setAttribute("data-A2", DataA[4+i]);
@@ -91,5 +92,7 @@ function counter(){
      
      };
 };
+
+
 
 startup.addEventListener("click", begin);
