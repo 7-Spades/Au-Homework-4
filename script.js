@@ -18,45 +18,78 @@ function begin(){
 function setup(){
     Q.setAttribute("data-Q1", Questionare[0]);
     Q.setAttribute("data-Q2", Questionare[1]);
-    Q.setAttribute("data-Q3", Questionare[3]);
+    Q.setAttribute("data-Q3", Questionare[2]);
     Q.setAttribute("data-Number", "first");
+
     for ( var i= 0; i<4; i++){
         var Ans= document.createElement("button");
+        Ans.addEventListener("click", text);
         Ans.setAttribute("class", "btn btn-outline-primary col-6 mr-3 p-4 mb-4");
+        Ans.setAttribute("id", i);
         Ans.setAttribute("data-A1", DataA[i]);
         Ans.setAttribute("data-A2", DataA[4+i]);
         Ans.setAttribute("data-A3", DataA[8+i]);
         position.appendChild(Ans);
        };
+
+       let Qstate= Q.getAttribute("data-Number");
+
+       if(Qstate=== "first"){
+           Q.textContent= Q.getAttribute("data-Q1");
+           Q.setAttribute("data-Number", "second");
+           let btn= document.getElementsByClassName("btn");
+           let i= 0;
+   
+           for( i= 0; i<4; i++){
+               btn[i].textContent= btn[i].getAttribute("data-A1");
+           };
+        };
        counter();
-       text();
 };
 
 function text(){
-    var Qstate= Q.getAttribute("data-Number");
-    if(Qstate=== "first"){
-        Q.textContent= Q.getAttribute("data-Q1");
-        for(var i= 0; i<4; i++){
-            var btn= document.getElementsByClassName("btn");
-            btn[i].textContent= btn[i].getAttribute("data-A1");
+
+    let Qstate= Q.getAttribute("data-Number");
+    let btn= document.getElementsByClassName("btn");
+    let i= 0;
+
+     if(Qstate==="second"){
+            Q.textContent= Q.getAttribute("data-Q2");
+            Q.setAttribute("data-Number", "third");
+            for( i= 0; i<4; i++){ 
+                btn[i].textContent= btn[i].getAttribute("data-A2");
+            };
+
+    } else if(Qstate=== "third"){
+            Q.textContent= Q.getAttribute("data-Q3");
+            Q.setAttribute("data-Number", "Forth")
+            
+            for( i=0; i<4; i++ ){
+                btn[i].textContent= btn[i].getAttribute("data-A3");
+            };
+
+    } else if(Qstate=== "Forth"){
+             Q.textContent= "Good Job!"
+
         };
-    };
 };
 
-secondsLeft= 10
+secondsLeft= 60
 
 function counter(){
-    var timeIn= setInterval(function(){
+    let timeIn= setInterval(function(){
         secondsLeft--;
     Timer.textContent= secondsLeft + " seconds left until quiz is over";
     },1000);
 
     if(secondsLeft=== 0){
-        Q.textContent= "Better luck Next time.";
-       var tryA= document.createElement("button");
-       tryA.setAttribute("class", "btn btn-outline-primary col-6 mr-3 p-4 mb-4");
-       position.appendChild(tryA);
-    };
+        Q.textContent= "";
+         document.querySelector(".btn").remove();
+         let tryA= document.createElement("button");
+         tryA.textContent="Try Again";
+         position.appendChild(tryA);
+     
+     };
 };
 
 startup.addEventListener("click", begin);
