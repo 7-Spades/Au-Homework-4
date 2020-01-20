@@ -5,6 +5,7 @@ var startup= document.querySelector("#TemB");
 var position= document.querySelector("#choice");
 var Timer= document.querySelector("#timer");
 var Contain= document.querySelector("#jumbo");
+var Fun= document.querySelector("#point");
 var Questionare= ["Who was the first president of the United States?", "When was the Louisiana Purchase bought?", "In what year did U.S Civil War start?"];
 var DataA=["James Adam", "George Washinton", "Benjamin Franklin", "Thomas Jefferson", "1776", "1803", "1812", "1789", "1847", "1851", "1861", "1862"];
 
@@ -32,7 +33,7 @@ function setup(){
         Ans.setAttribute("data-A3", DataA[8+i]);
         position.appendChild(Ans);
        };
-
+      
        let Qstate= Q.getAttribute("data-Number");
 
        if(Qstate=== "first"){
@@ -40,7 +41,6 @@ function setup(){
            Q.setAttribute("data-Number", "second");
            let btn= document.getElementsByClassName("btn");
            let i= 0;
-   
            for( i= 0; i<4; i++){
                btn[i].textContent= btn[i].getAttribute("data-A1");
            };
@@ -49,6 +49,8 @@ function setup(){
 };
 
 function text(){
+
+    Astate();
 
     let Qstate= Q.getAttribute("data-Number");
     let btn= document.getElementsByClassName("btn");
@@ -64,13 +66,24 @@ function text(){
     } else if(Qstate=== "third"){
             Q.textContent= Q.getAttribute("data-Q3");
             Q.setAttribute("data-Number", "Forth")
-            
             for( i=0; i<4; i++ ){
                 btn[i].textContent= btn[i].getAttribute("data-A3");
             };
 
     } else if(Qstate=== "Forth"){
-             Q.textContent= "Good Job!"
+             var Rec= document.querySelector("#Real");
+             Q.textContent="High Score Winner";
+             position.remove();
+             document.querySelector("#point").remove();
+             var Tag= document.createElement("form");
+             var Name= document.createElement("input");
+             var Comitter= document.createElement("input")
+             Name.setAttribute("type", "text");
+             Name.setAttribute("placeholder", "First and Last Name");
+             Comitter.setAttribute("type", "submit");
+             Comitter.textContent="submit name";
+             Rec.appendChild(Name);
+             Rec.appendChild(Comitter);
 
         };
 };
@@ -93,6 +106,26 @@ function counter(){
      };
 };
 
+function Astate(){
+    let Check= event.target
 
+    if(Check.textContent === "George Washinton"){
+        console.log("Correct");
+        Fun.textContent="Correct!";
+        
+    } else if(Check.textContent === "1803"){
+        console.log("Correct");
+        Fun.textContent="Correct!";
+    }else if(Check.textContent === "1861"){
+        console.log("Correct");
+        Fun.textContent="Correct!";
+        
+    } else{
+        console.log("wrong");
+        Fun.textContent="Wrong!";
+        
+    };
+
+};
 
 startup.addEventListener("click", begin);
